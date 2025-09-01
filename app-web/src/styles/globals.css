@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Keyboard Styles */
+.custom-keyboard .hg-button {
+  background: linear-gradient(135deg, #374151 0%, #4B5563 100%);
+  border: 1px solid #6B7280;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 12px;
+  margin: 4px;
+  min-width: 60px;
+  height: 60px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.custom-keyboard .hg-button:hover {
+  background: linear-gradient(135deg, #4B5563 0%, #6B7280 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.custom-keyboard .hg-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.custom-keyboard .hg-button.hg-button-enter {
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+  border-color: #34D399;
+  color: white;
+  font-weight: 700;
+  min-width: 80px;
+}
+
+.custom-keyboard .hg-button.hg-button-enter:hover {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%);
+}
+
+.custom-keyboard .hg-button[data-skbtn="{bksp}"] {
+  background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+  border-color: #F87171;
+  color: white;
+  font-weight: 700;
+  min-width: 80px;
+}
+
+.custom-keyboard .hg-button[data-skbtn="{bksp}"]:hover {
+  background: linear-gradient(135deg, #B91C1C 0%, #DC2626 100%);
+}
+
+.custom-keyboard .hg-button[data-skbtn="0"] {
+  min-width: 80px;
+}
+
+.custom-keyboard .hg-button[data-skbtn="1"],
+.custom-keyboard .hg-button[data-skbtn="2"],
+.custom-keyboard .hg-button[data-skbtn="3"],
+.custom-keyboard .hg-button[data-skbtn="4"],
+.custom-keyboard .hg-button[data-skbtn="5"],
+.custom-keyboard .hg-button[data-skbtn="6"],
+.custom-keyboard .hg-button[data-skbtn="7"],
+.custom-keyboard .hg-button[data-skbtn="8"],
+.custom-keyboard .hg-button[data-skbtn="9"] {
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  border-color: #4B5563;
+}
+
+.custom-keyboard .hg-button[data-skbtn="1"]:hover,
+.custom-keyboard .hg-button[data-skbtn="2"]:hover,
+.custom-keyboard .hg-button[data-skbtn="3"]:hover,
+.custom-keyboard .hg-button[data-skbtn="4"]:hover,
+.custom-keyboard .hg-button[data-skbtn="5"]:hover,
+.custom-keyboard .hg-button[data-skbtn="6"]:hover,
+.custom-keyboard .hg-button[data-skbtn="7"]:hover,
+.custom-keyboard .hg-button[data-skbtn="8"]:hover,
+.custom-keyboard .hg-button[data-skbtn="9"]:hover {
+  background: linear-gradient(135deg, #374151 0%, #4B5563 100%);
+}
+
+/* Keyboard Container */
+.custom-keyboard {
+  background: transparent !important;
+  padding: 20px !important;
+  border-radius: 16px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .custom-keyboard .hg-button {
+    min-width: 50px;
+    height: 50px;
+    font-size: 16px;
+    margin: 3px;
+  }
+  
+  .custom-keyboard .hg-button.hg-button-enter,
+  .custom-keyboard .hg-button[data-skbtn="{bksp}"] {
+    min-width: 70px;
+  }
+  
+  .custom-keyboard .hg-button[data-skbtn="0"] {
+    min-width: 70px;
+  }
+}

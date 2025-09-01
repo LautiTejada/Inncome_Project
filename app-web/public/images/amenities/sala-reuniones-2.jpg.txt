@@ -1,0 +1,2 @@
+Simulated image file for sala-reuniones-2.jpg
+This would be an actual JPG image in a real implementation

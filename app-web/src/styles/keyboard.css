@@ -1,0 +1,103 @@
+/* Estilos personalizados para el teclado numérico */
+.hg-theme-default {
+  background: transparent !important;
+  font-family: 'Inter', sans-serif;
+}
+
+.hg-theme-default .hg-button {
+  background: rgba(55, 65, 81, 0.8) !important;
+  border: 1px solid rgba(75, 85, 99, 0.5) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.hg-theme-default .hg-button:hover {
+  background: rgba(75, 85, 99, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.hg-theme-default .hg-button:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Botón Enter especial */
+.hg-theme-default .hg-button-enter {
+  background: linear-gradient(135deg, #06011A 0%, #0047bb 100%) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.hg-theme-default .hg-button-enter:hover {
+  background: linear-gradient(135deg, #0047bb 0%, #1e40af 100%) !important;
+  border-color: rgba(59, 130, 246, 0.8) !important;
+}
+
+/* Botón Backspace */
+.hg-theme-default .hg-button[data-skbtn="{bksp}"] {
+  background: rgba(239, 68, 68, 0.8) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.hg-theme-default .hg-button[data-skbtn="{bksp}"]:hover {
+  background: rgba(239, 68, 68, 0.9) !important;
+  border-color: rgba(239, 68, 68, 0.8) !important;
+}
+
+/* Números */
+.hg-theme-default .hg-button[data-skbtn="0"],
+.hg-theme-default .hg-button[data-skbtn="1"],
+.hg-theme-default .hg-button[data-skbtn="2"],
+.hg-theme-default .hg-button[data-skbtn="3"],
+.hg-theme-default .hg-button[data-skbtn="4"],
+.hg-theme-default .hg-button[data-skbtn="5"],
+.hg-theme-default .hg-button[data-skbtn="6"],
+.hg-theme-default .hg-button[data-skbtn="7"],
+.hg-theme-default .hg-button[data-skbtn="8"],
+.hg-theme-default .hg-button[data-skbtn="9"] {
+  background: rgba(55, 65, 81, 0.8) !important;
+  border-color: rgba(75, 85, 99, 0.5) !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+}
+
+.hg-theme-default .hg-button[data-skbtn="0"]:hover,
+.hg-theme-default .hg-button[data-skbtn="1"]:hover,
+.hg-theme-default .hg-button[data-skbtn="2"]:hover,
+.hg-theme-default .hg-button[data-skbtn="3"]:hover,
+.hg-theme-default .hg-button[data-skbtn="4"]:hover,
+.hg-theme-default .hg-button[data-skbtn="5"]:hover,
+.hg-theme-default .hg-button[data-skbtn="6"]:hover,
+.hg-theme-default .hg-button[data-skbtn="7"]:hover,
+.hg-theme-default .hg-button[data-skbtn="8"]:hover,
+.hg-theme-default .hg-button[data-skbtn="9"]:hover {
+  background: rgba(75, 85, 99, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hg-theme-default .hg-button {
+    font-size: 1rem !important;
+    padding: 12px 8px !important;
+  }
+  
+  .hg-theme-default .hg-button[data-skbtn="0"],
+  .hg-theme-default .hg-button[data-skbtn="1"],
+  .hg-theme-default .hg-button[data-skbtn="2"],
+  .hg-theme-default .hg-button[data-skbtn="3"],
+  .hg-theme-default .hg-button[data-skbtn="4"],
+  .hg-theme-default .hg-button[data-skbtn="5"],
+  .hg-theme-default .hg-button[data-skbtn="6"],
+  .hg-theme-default .hg-button[data-skbtn="7"],
+  .hg-theme-default .hg-button[data-skbtn="8"],
+  .hg-theme-default .hg-button[data-skbtn="9"] {
+    font-size: 1rem !important;
+  }
+}
