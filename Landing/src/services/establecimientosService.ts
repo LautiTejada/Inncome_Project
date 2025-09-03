@@ -1,15 +1,10 @@
-export interface Establecimiento {
-    id: number;
-    razon_social: string;
-}
+import { mockEstablecimientos, simulateApiDelay, type Establecimiento } from "../data/mockData";
 
+// Servicio mock para establecimientos - reemplaza las llamadas a la API real
 export const getEstablecimientos = async (): Promise<Establecimiento[]> => {
-    const res = await fetch("https://app.inncome.net/establecimientoApi.php", {
-        method: "GET",
-        credentials: "include",
-    });
-    if (!res.ok) {
-        throw new Error("Error al obtener establecimientos");
-    }
-    return res.json();
+    // Simular delay de API
+    await simulateApiDelay(500);
+    
+    // Retornar datos mock en lugar de hacer llamada real a la API
+    return mockEstablecimientos;
 };

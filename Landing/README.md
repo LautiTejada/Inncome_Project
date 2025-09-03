@@ -1,69 +1,142 @@
-# React + TypeScript + Vite
+# Inncome Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una landing page moderna desarrollada con React, TypeScript y Tailwind CSS para la plataforma Inncome.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Diseño moderno y responsive** con gradientes y efectos visuales
+- **Sistema de autenticación completo** con login y registro diferenciado
+- **Formularios multi-step** con validación en tiempo real
+- **Integración con SweetAlert2** para notificaciones elegantes
+- **Datos mock** para demostración sin dependencias externas
 
-## Expanding the ESLint configuration
+## 🛠️ Stack Tecnológico
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:** React 19 + TypeScript + Vite
+- **Styling:** Tailwind CSS con design system personalizado
+- **UI/UX:** SweetAlert2 para notificaciones
+- **Arquitectura:** Componentes modulares y reutilizables
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Instalación
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+```bash
+# Clonar el repositorio
+git clone [url-del-repositorio]
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
+npm run dev
+
+# Construir para producción
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎯 Funcionalidades
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Sistema de Autenticación
+- **Login:** Acceso con email y contraseña
+- **Registro de Propietarios/Inquilinos:** Formulario multi-step con datos específicos
+- **Registro de Clientes Externos:** Formulario simplificado para usuarios externos
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Datos Mock
+El proyecto incluye un sistema de datos mock que simula las respuestas de la API:
+
+#### Usuarios de prueba:
+- **Email:** `admin@inncome.net` | **Contraseña:** `123456`
+- **Email:** `demo@inncome.net` | **Contraseña:** `123456`
+- **Email:** `propietario@test.com` | **Contraseña:** `123456`
+
+#### Establecimientos disponibles:
+- Barrio Privado Los Robles
+- Country Club San Isidro
+- Residencial Las Lomas
+- Barrio Cerrado El Bosque
+- Country Villa Allende
+- Barrio Privado La Escondida
+- Residencial Los Pinos
+- Country Club Córdoba
+
+## 🏗️ Estructura del Proyecto
+
 ```
+src/
+├── components/
+│   ├── sections/          # Secciones de la landing page
+│   ├── ui/               # Componentes de UI reutilizables
+│   │   └── AuthModal/    # Sistema de autenticación
+│   └── Navigation.tsx    # Navegación principal
+├── data/
+│   └── mockData.ts       # Datos mock para demostración
+├── services/
+│   └── establecimientosService.ts  # Servicio de establecimientos
+├── hooks/
+│   └── useEstablecimientos.ts      # Hook personalizado
+└── lib/
+    ├── contactInfo.ts    # Información de contacto
+    └── utils.ts          # Utilidades
+```
+
+## 🎨 Personalización
+
+### Colores del tema
+Los colores corporativos están definidos en `tailwind.config.js`:
+- **Cyan principal:** `#00d4aa`
+- **Azul inicio:** `#1e40af`
+- **Azul final:** `#1e3a8a`
+
+### Componentes principales
+- **Hero:** Sección principal con CTA
+- **WhatIsInncome:** Descripción del producto
+- **Services:** Servicios ofrecidos
+- **Implementation:** Proceso de implementación
+- **Contact:** Información de contacto
+
+## 🔧 Desarrollo
+
+### Scripts disponibles
+```bash
+npm run dev      # Servidor de desarrollo
+npm run build    # Construcción para producción
+npm run preview  # Vista previa de la construcción
+npm run lint     # Linter de código
+```
+
+### Configuración de TypeScript
+El proyecto está configurado con TypeScript estricto para mejor type safety y experiencia de desarrollo.
+
+## 📱 Responsive Design
+
+La landing page está optimizada para:
+- **Desktop:** Experiencia completa con efectos visuales
+- **Tablet:** Adaptación de layout y componentes
+- **Mobile:** Diseño mobile-first con navegación optimizada
+
+## 🚀 Despliegue
+
+Para desplegar en producción:
+
+```bash
+# Construir el proyecto
+npm run build
+
+# Los archivos estáticos estarán en la carpeta 'dist'
+```
+
+## 📄 Licencia
+
+Este proyecto es parte del portfolio de desarrollo y está disponible para fines de demostración.
+
+## 👨‍💻 Autor
+
+Desarrollado como parte del portfolio profesional, mostrando habilidades en:
+- Migración de sistemas legacy
+- Desarrollo frontend moderno
+- Integración de APIs
+- Diseño de UX/UI
+- Arquitectura de componentes
+
+---
+
+*Este proyecto utiliza datos mock para demostración. En un entorno de producción, se integraría con APIs reales.*

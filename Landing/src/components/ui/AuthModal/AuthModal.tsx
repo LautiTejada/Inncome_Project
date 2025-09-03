@@ -4,6 +4,7 @@ import RegisterPropietarioForm from "./RegisterPropietarioForm";
 import RegisterExternoForm from "./RegisterExternoForm";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import { mockLogin, mockRegisterPropietario, mockRegisterExterno } from "../../../data/mockData";
 
 interface AuthModalProps {
   open: boolean;
@@ -81,35 +82,31 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose }) => {
     setErrorMsg(null);
     setSuccessMsg(null);
     try {
-      const formData = new FormData();
-      formData.append("correo", email);
-      formData.append("clave", password);
-
-      const res = await fetch("https://app.inncome.net/loginApi.php", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-
-      const data = await res.json();
+      // Usar datos mock en lugar de llamada real a la API
+      const data = await mockLogin(email, password);
 
       if (data.success) {
-        // Redirigimos manualmente desde el frontend
-        window.location.href = "https://app.inncome.net/home.php";
+        setSuccessMsg("¡Login exitoso! Redirigiendo...");
+        // Simular redirección después de 2 segundos
+        setTimeout(() => {
+          // En lugar de redirigir a la app real, mostrar mensaje de éxito
+          Swal.fire({
+            title: "¡Bienvenido!",
+            text: `Hola ${data.user?.nombre} ${data.user?.apellido}`,
+            icon: "success",
+            background: "#161617",
+            color: "#fff",
+            iconColor: "#00FFD1",
+            customClass: {
+              popup: "rounded-2xl",
+              confirmButton: "bg-gradient-to-r from-cyan-400 to-[#00205B] text-white font-semibold rounded-full py-2 px-6 shadow-md hover:from-cyan-300 hover:to-cyan-500 transition-all border-0",
+            },
+            buttonsStyling: false,
+          });
+          onClose();
+        }, 2000);
       } else {
-        const error = data.message?.toLowerCase() || "";
-        if (error.includes("correo") && error.includes("registrado")) {
-          setErrorMsg("El email ya está registrado. ¿Querés iniciar sesión?");
-        } else if (
-          error.includes("contraseña incorrecta") ||
-          error.includes("contrasena incorrecta")
-        ) {
-          setErrorMsg("Contraseña incorrecta");
-        } else if (error.includes("cuenta debe ser activada")) {
-          setErrorMsg("Tu cuenta debe ser activada por el administrador");
-        } else {
-          setErrorMsg(data.message || "Error desconocido. Intenta de nuevo.");
-        }
+        setErrorMsg(data.message || "Error desconocido. Intenta de nuevo.");
       }
     } catch (e) {
       console.error("Error en la solicitud de login:", e);
@@ -125,58 +122,47 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose }) => {
     setErrorMsg(null);
     setSuccessMsg(null);
     try {
-      const formData = new FormData();
-      formData.append("nombre", propietarioData.nombre);
-      formData.append("apellido", propietarioData.apellido);
-      formData.append("correo", propietarioData.email);
-      formData.append("clave", propietarioData.clave);
-      formData.append(
-        "tipo_documento",
-        isForeignDoc ? "Pasaporte" : "Documento Nacional Identidad"
-      );
-      formData.append("documento", propietarioData.numDoc);
-      formData.append("manzana", propietarioData.manzana);
-      formData.append("lote", propietarioData.lote);
-      formData.append("telefono", propietarioData.telefono);
-      // Buscar el id_establecimiento por nombre (mock, deberías mapearlo real)
-      // Por ahora, mandamos el nombre como si fuera el id
-      formData.append("id_establecimiento", propietarioData.establecimiento);
-      try {
-        const res = await fetch("https://app.inncome.net/registerApi.php", {
-          method: "POST",
-          body: formData,
-          credentials: "include",
-        });
+      // Usar datos mock en lugar de llamada real a la API
+      const data = await mockRegisterPropietario({
+        nombre: propietarioData.nombre,
+        apellido: propietarioData.apellido,
+        email: propietarioData.email,
+        clave: propietarioData.clave,
+        tipo_documento: isForeignDoc ? "Pasaporte" : "Documento Nacional Identidad",
+        documento: propietarioData.numDoc,
+        manzana: propietarioData.manzana,
+        lote: propietarioData.lote,
+        telefono: propietarioData.telefono,
+        id_establecimiento: propietarioData.establecimiento
+      });
 
-        let data;
-        try {
-          data = await res.json(); // intenta parsear JSON
-        } catch (jsonErr) {
-          console.error("Respuesta no es JSON válida:", jsonErr);
-          setErrorMsg("Error inesperado. Respuesta inválida del servidor.");
-          return;
-        }
-
-        if (res.status === 201) {
-          setSuccessMsg("Registro exitoso. Redirigiendo al home...");
-          setTimeout(() => {
-            window.location.href = "https://app.inncome.net/home.php";
-          }, 3000);
-          return;
-        } else if (res.status === 409) {
+      if (data.success) {
+        setSuccessMsg("¡Registro exitoso! Redirigiendo...");
+        setTimeout(() => {
+          // En lugar de redirigir a la app real, mostrar mensaje de éxito
+          Swal.fire({
+            title: "¡Registro completado!",
+            text: `Bienvenido ${data.user?.nombre} ${data.user?.apellido}`,
+            icon: "success",
+            background: "#161617",
+            color: "#fff",
+            iconColor: "#00FFD1",
+            customClass: {
+              popup: "rounded-2xl",
+              confirmButton: "bg-gradient-to-r from-cyan-400 to-[#00205B] text-white font-semibold rounded-full py-2 px-6 shadow-md hover:from-cyan-300 hover:to-cyan-500 transition-all border-0",
+            },
+            buttonsStyling: false,
+          });
+          onClose();
+        }, 2000);
+      } else {
+        if (data.status === 409) {
           setErrorMsg("El email ya está registrado. ¿Querés iniciar sesión?");
-        } else if (res.status === 422) {
+        } else if (data.status === 422) {
           setErrorMsg(data.message || "Faltan datos obligatorios.");
-        } else if (res.status === 500) {
-          setErrorMsg("Error interno del servidor. Intenta de nuevo.");
         } else {
           setErrorMsg(data.message || "Error desconocido.");
         }
-      } catch (e) {
-        console.error("Error en la solicitud de registro propietario:", e);
-        setErrorMsg("Error de conexión. Intenta de nuevo.");
-      } finally {
-        setLoading(false);
       }
     } catch (e) {
       console.error("Error en la solicitud de registro propietario:", e);
@@ -191,65 +177,48 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose }) => {
     setLoading(true);
     setErrorMsg(null);
     setSuccessMsg(null);
-    // Simulación de éxito:
-    setTimeout(() => {
-      setSuccessMsg("Registro exitoso. Redirigiendo al home...");
-      setTimeout(() => {
-        window.location.href = "https://www.google.com";
-      }, 3000);
-      setLoading(false);
-    }, 1000);
-    return;
     try {
-      const formData = new FormData();
-      formData.append("correo", externoData.email);
-      formData.append("clave", externoData.clave);
-      formData.append("nombre", externoData.nombre);
-      formData.append("apellido", externoData.apellido);
-      formData.append(
-        "tipo_documento",
-        isForeignDoc ? "Pasaporte" : "Documento Nacional Identidad"
-      );
-      formData.append("documento", externoData.numDoc);
-      formData.append("telefono", externoData.telefono);
+      // Usar datos mock en lugar de llamada real a la API
+      const data = await mockRegisterExterno({
+        email: externoData.email,
+        clave: externoData.clave,
+        nombre: externoData.nombre,
+        apellido: externoData.apellido,
+        tipo_documento: isForeignDoc ? "Pasaporte" : "Documento Nacional Identidad",
+        documento: externoData.numDoc,
+        telefono: externoData.telefono,
+        razonSocial: externoData.razonSocial
+      });
 
-      try {
-        const res = await fetch(
-          "https://app.inncome.net/registerNoPropApi.php",
-          {
-            method: "POST",
-            body: formData,
-            credentials: "include",
-          }
-        );
-
-        const data = await res.json();
-
-        if (res.status === 201) {
-          setSuccessMsg("Registro exitoso. Redirigiendo al home...");
-          setTimeout(() => {
-            window.location.href = "https://app.inncome.net/home.php";
-          }, 3000);
-          return;
-        } else if (res.status === 409) {
-          // Email duplicado
-
+      if (data.success) {
+        setSuccessMsg("¡Registro exitoso! Redirigiendo...");
+        setTimeout(() => {
+          // En lugar de redirigir a la app real, mostrar mensaje de éxito
+          Swal.fire({
+            title: "¡Registro completado!",
+            text: `Bienvenido ${data.user?.nombre} ${data.user?.apellido}`,
+            icon: "success",
+            background: "#161617",
+            color: "#fff",
+            iconColor: "#00FFD1",
+            customClass: {
+              popup: "rounded-2xl",
+              confirmButton: "bg-gradient-to-r from-cyan-400 to-[#00205B] text-white font-semibold rounded-full py-2 px-6 shadow-md hover:from-cyan-300 hover:to-cyan-500 transition-all border-0",
+            },
+            buttonsStyling: false,
+          });
+          onClose();
+        }, 2000);
+      } else {
+        if (data.status === 409) {
           setErrorMsg("El email ya está registrado. ¿Querés iniciar sesión?");
-        } else if (res.status === 422) {
-          // Datos incompletos (si en un futuro agregás esa validación)
+        } else if (data.status === 422) {
           setErrorMsg(data.message || "Faltan datos obligatorios.");
-        } else if (res.status === 500) {
-          // Error interno del servidor
+        } else if (data.status === 500) {
           setErrorMsg("Ocurrió un error interno. Intenta de nuevo.");
         } else {
-          // Otro error desconocido
           setErrorMsg(data.message || "Error desconocido. Intenta de nuevo.");
         }
-      } catch (e) {
-        console.error("Error en la solicitud de registro externo:", e);
-        setErrorMsg("Error de conexión. Intenta de nuevo.");
-      } finally {
-        setLoading(false);
       }
     } catch (e) {
       console.error("Error en la solicitud de registro externo:", e);
